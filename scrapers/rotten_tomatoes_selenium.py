@@ -93,7 +93,7 @@ class RottenTomatoesSeleniumScraper:
         chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
         
         try:
-            # Use simple initialization like your working script - no Service object
+            # Use simple initialization
             self.driver = webdriver.Chrome(options=chrome_options)
             self.driver.set_page_load_timeout(30)
             logger.info(" Chrome WebDriver initialized")
@@ -245,7 +245,7 @@ class RottenTomatoesSeleniumScraper:
                     empty_audience = driver.find_element(By.CSS_SELECTOR, 'rt-text.audience-score-empty')
                     aud_class = empty_audience.get_attribute('class') if empty_audience else None
                     if aud_class and 'hide' not in aud_class:
-                        logger.warning(f"⚠️  Both Tomatometer and Popcornmeter show '- -' for: {movie_slug}")
+                        logger.warning(f"  Both Tomatometer and Popcornmeter show '- -' for: {movie_slug}")
                         return None
                 except Exception:
                     pass
@@ -257,13 +257,13 @@ class RottenTomatoesSeleniumScraper:
                         popcorn_value = float(popcorn_text.replace('%', ''))
                         return popcorn_value
                     else:
-                        logger.warning(f"⚠️  Neither Tomatometer nor Popcornmeter available for: {movie_slug}")
+                        logger.warning(f"  Neither Tomatometer nor Popcornmeter available for: {movie_slug}")
                         return None
                 except Exception:
-                    logger.warning(f"⚠️  Neither Tomatometer nor Popcornmeter found for: {movie_slug}")
+                    logger.warning(f"  Neither Tomatometer nor Popcornmeter found for: {movie_slug}")
                     return None
         except Exception as e:
-            logger.warning(f"⚠️  Error getting RT score for '{movie_slug}': {str(e)}")
+            logger.warning(f"  Error getting RT score for '{movie_slug}': {str(e)}")
             return None
     
     def search_movie(self, title: str, year: Optional[int] = None) -> Optional[str]:
@@ -301,7 +301,7 @@ class RottenTomatoesSeleniumScraper:
                 return slug
         
         # STRATEGY 3: Fallback to slug generation WITHOUT year
-        logger.warning(f"⚠️ Search failed, trying slug generation without year")
+        logger.warning(f" Search failed, trying slug generation without year")
         slug = self._generate_slug(title, year=None)
         logger.info(f"Generated slug (no year): {slug}")
         
@@ -411,7 +411,7 @@ class RottenTomatoesSeleniumScraper:
                 logger.info(f" Match found: '{result_title}' ({result_year}) -> {slug} [score: {score:.2f}]")
                 return slug
             elif best_match:
-                logger.warning(f"⚠️ Best match score too low ({best_score:.2f}): '{best_match[0]}' for '{title}'")
+                logger.warning(f" Best match score too low ({best_score:.2f}): '{best_match[0]}' for '{title}'")
             else:
                 logger.warning(f"No matching movie found in search results for: {title}")
             
@@ -636,7 +636,7 @@ class RottenTomatoesSeleniumScraper:
                 logger.info(f"ℹ️  Driver closed for {endpoint_type}")
             else:
                 # Unknown error - log a warning
-                logger.warning(f"⚠️  Error scraping {endpoint_type}: {error_msg[:100]}")
+                logger.warning(f"  Error scraping {endpoint_type}: {error_msg[:100]}")
             
             return []  # Always return empty list gracefully
     
@@ -876,7 +876,7 @@ class RottenTomatoesSeleniumScraper:
             return reviews
             
         except Exception as e:
-            logger.warning(f"⚠️  Error in scrape_movie_reviews for '{title}': {str(e)[:80]}")
+            logger.warning(f"  Error in scrape_movie_reviews for '{title}': {str(e)[:80]}")
             return []
             
         finally:
@@ -918,4 +918,4 @@ if __name__ == "__main__":
             print(f"\n{i}. [{review['review_type']}] {review['author'] or 'Anonymous'}")
             print(f"   {review['text'][:150]}...")
     else:
-        print("\n⚠️  No reviews found")
+        print("\n  No reviews found")

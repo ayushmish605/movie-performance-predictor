@@ -57,10 +57,10 @@ def add_rt_slug_column():
             for row in result:
                 if row[1] == 'rt_slug':
                     print(f"\n Column details:")
-                    print(f"   Name: {row[1]}")
-                    print(f"   Type: {row[2]}")
-                    print(f"   Not Null: {bool(row[3])}")
-                    print(f"   Default: {row[4]}")
+                    print(f"  Name: {row[1]}")
+                    print(f"  Type: {row[2]}")
+                    print(f"  Not Null: {bool(row[3])}")
+                    print(f"  Default: {row[4]}")
                     break
         else:
             print(" Error: Column was not added successfully")
@@ -68,13 +68,6 @@ def add_rt_slug_column():
     
     print("\n" + "="*80)
     print(" MIGRATION COMPLETE!")
-    print("="*80)
-    print("The 'rt_slug' column has been added to the movies table.")
-    print("All existing data has been preserved.")
-    print("\nYou can now:")
-    print("1. Update src/database/models.py to add: rt_slug = Column(String(200), nullable=True)")
-    print("2. Use the rt_slug field in your notebook cells")
-    print("="*80)
 
 if __name__ == "__main__":
     try:

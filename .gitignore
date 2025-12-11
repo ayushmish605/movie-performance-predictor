@@ -7,6 +7,8 @@ __pycache__/
 venv/
 env/
 ENV/
+.venv/
+.env
 
 # Jupyter
 .ipynb_checkpoints
@@ -14,15 +16,11 @@ ENV/
 
 # Database
 *.db
+!data/database/movie_recommender.db
 *.sqlite
 *.sqlite3
 
-# Config with credentials
-config/api_keys.yaml
-config/config.yaml
-
-# Data exports
-exports/
+# Logs
 logs/
 *.log
 

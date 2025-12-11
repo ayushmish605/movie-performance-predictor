@@ -2,7 +2,7 @@
 """
 Interactive Database Viewer
 
-Run this script to view the contents of your movie recommendation database.
+View the contents of the movie recommendation database.
 Works in terminal with rich formatting or opens a simple web interface.
 
 Usage:
@@ -166,31 +166,31 @@ def view_reviews(limit=20, movie_title=None):
         for i, review in enumerate(reviews, 1):
             movie = db.query(Movie).filter(Movie.id == review.movie_id).first()
             print(f"\n{i}. {movie.title if movie else 'Unknown'} ({review.source.upper()})")
-            print(f"   Author: {review.author or 'Anonymous'}")
+            print(f"  Author: {review.author or 'Anonymous'}")
             
             if review.rating:
-                print(f"   Rating: {review.rating}/10")
+                print(f"  Rating: {review.rating}/10")
             
             # Sentiment information
             if review.sentiment_score is not None:
                 sentiment_emoji = "" if review.sentiment_label == 'positive' else "" if review.sentiment_label == 'negative' else ""
-                print(f"   Sentiment: {review.sentiment_score:.4f} ({review.sentiment_label} {sentiment_emoji})")
+                print(f"  Sentiment: {review.sentiment_score:.4f} ({review.sentiment_label} {sentiment_emoji})")
                 if review.sentiment_confidence:
-                    print(f"   Confidence: {review.sentiment_confidence:.4f}")
+                    print(f"  Confidence: {review.sentiment_confidence:.4f}")
             
             # Category for RT reviews
             if review.source == 'rotten_tomatoes' and review.review_category:
                 category_display = review.review_category.replace('_', ' ').title()
-                print(f"   Category: {category_display}")
+                print(f"  Category: {category_display}")
             
             if review.helpful_count:
-                print(f"   Helpful: {review.helpful_count:,} votes")
+                print(f"  Helpful: {review.helpful_count:,} votes")
             
-            print(f"   Length: {review.word_count or 0} words")
+            print(f"  Length: {review.word_count or 0} words")
             
             # Show preview
             preview = review.text[:150] + "..." if review.text and len(review.text) > 150 else review.text
-            print(f"   \"{preview}\"")
+            print(f"  \"{preview}\"")
             
             if i < len(reviews):
                 print_separator("-")
@@ -219,8 +219,8 @@ def view_search_terms(limit=20):
         for i, term in enumerate(terms, 1):
             movie = db.query(Movie).filter(Movie.id == term.movie_id).first()
             print(f"{i}. {movie.title if movie else 'Unknown'}")
-            print(f"   Term: \"{term.search_term}\"")
-            print(f"   Source: {term.source}")
+            print(f"  Term: \"{term.search_term}\"")
+            print(f"  Source: {term.source}")
             print()
         
         total = db.query(MovieSearchTerm).count()

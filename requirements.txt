@@ -12,8 +12,6 @@ psycopg2-binary>=2.9.0
 # Web scraping
 requests>=2.31.0
 beautifulsoup4>=4.12.0
-praw>=7.7.0  # Reddit API
-snscrape>=0.7.0  # Twitter scraping (no API key needed)
 fuzzywuzzy>=0.18.0  # Fuzzy string matching for IMDb search
 python-Levenshtein>=0.25.0  # Speed up fuzzywuzzy (optional but recommended)
 
@@ -28,13 +26,11 @@ torch>=2.1.0
 nltk>=3.8.1
 vaderSentiment>=3.3.2
 spacy>=3.7.0
-
-# OpenAI API (for search term generation)
-openai>=1.0.0
+xgboost>=2.0.0
+tensorflow>=2.15.0
 
 # Utilities
 python-dotenv>=1.0.0
-pyyaml>=6.0.1
 tqdm>=4.66.0
 joblib>=1.3.0
 

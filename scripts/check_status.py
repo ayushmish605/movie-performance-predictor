@@ -104,7 +104,7 @@ def check_database_health():
         if movies_without_reviews > 0:
             pct = movies_without_reviews / max(movies_count, 1) * 100
             warnings.append(f"{movies_without_reviews} movies ({pct:.1f}%) have no reviews")
-            print(f"  ⚠️  Movies w/o reviews: {movies_without_reviews:>10,} ({pct:>5.1f}%)")
+            print(f"    Movies w/o reviews: {movies_without_reviews:>10,} ({pct:>5.1f}%)")
         else:
             print(f"    All movies have reviews")
         
@@ -126,7 +126,7 @@ def check_database_health():
         
         if short_reviews > 0:
             warnings.append(f"{short_reviews} reviews are very short (< 20 chars)")
-            print(f"  ⚠️  Very short reviews:  {short_reviews:>10,}")
+            print(f"    Very short reviews:  {short_reviews:>10,}")
         
         # Check for duplicate source_ids
         duplicate_source_ids = db.query(Review.source_id, func.count(Review.source_id)).group_by(
@@ -154,7 +154,7 @@ def check_database_health():
         missing_year = db.query(Movie).filter(Movie.release_year == None).count()
         if missing_year > 0:
             warnings.append(f"{missing_year} movies missing release year")
-            print(f"  ⚠️  Movies w/o year:     {missing_year:>10,}")
+            print(f"    Movies w/o year:     {missing_year:>10,}")
         
         # Check for movies without genres
         missing_genres = db.query(Movie).filter(
@@ -162,7 +162,7 @@ def check_database_health():
         ).count()
         if missing_genres > 0:
             warnings.append(f"{missing_genres} movies missing genres")
-            print(f"  ⚠️  Movies w/o genres:   {missing_genres:>10,}")
+            print(f"    Movies w/o genres:   {missing_genres:>10,}")
         
         # ============================================================
         # SECTION 4: RATING ANALYSIS
@@ -270,27 +270,27 @@ def check_database_health():
         
         if not issues and not warnings:
             print("\n DATABASE HEALTH: EXCELLENT")
-            print("   No issues or warnings detected!")
+            print("  No issues or warnings detected!")
         else:
             if issues:
                 print(f"\n CRITICAL ISSUES ({len(issues)}):")
                 for issue in issues:
-                    print(f"   • {issue}")
+                    print(f"  • {issue}")
             
             if warnings:
-                print(f"\n⚠️  WARNINGS ({len(warnings)}):")
+                print(f"\n  WARNINGS ({len(warnings)}):")
                 for warning in warnings:
-                    print(f"   • {warning}")
+                    print(f"  • {warning}")
             
             print("\n RECOMMENDATIONS:")
             if movies_without_reviews > 0:
-                print("   • Run scraping pipeline to collect more reviews")
+                print("  • Run scraping pipeline to collect more reviews")
             if empty_reviews > 0:
-                print("   • Clean up or remove reviews with empty text")
+                print("  • Clean up or remove reviews with empty text")
             if duplicate_source_ids > 0:
-                print("   • Investigate and remove duplicate reviews")
+                print("  • Investigate and remove duplicate reviews")
             if missing_source_id > 0:
-                print("   • Add source_id to all reviews for proper deduplication")
+                print("  • Add source_id to all reviews for proper deduplication")
         
         print("\n" + "=" * 80 + "\n")
         

@@ -2,6 +2,13 @@
 
 A data collection and feature engineering pipeline for predicting movie performance (hit or flop) using reviews, ratings, and sentiment analysis from multiple sources.
 
+## Team
+
+**Project Creators:**
+- Ayush Mishra
+- Nihal Shah
+- Ruchi Kapse
+
 ## Overview
 
 This repository contains the **data collection component** of a movie performance prediction system. It scrapes movie reviews and ratings from IMDb and Rotten Tomatoes, performs sentiment analysis, and prepares features for machine learning classification.
@@ -24,7 +31,8 @@ The pipeline processes 2,188 commercial movies released between 2016-2024, sourc
 ```
 movie-performance-predictor/
 ├── notebooks/
-│   └── data_collection.ipynb    # Main data collection workflow
+│   ├── data_collection.ipynb    # Main data collection workflow
+│   └── eda_movies.ipynb         # Exploratory data analysis
 ├── scrapers/
 │   ├── imdb_scraper.py          # IMDb scraper
 │   └── rotten_tomatoes_selenium.py  # Rotten Tomatoes scraper
@@ -33,10 +41,10 @@ movie-performance-predictor/
 │   ├── add_sentiment_columns.sql
 │   ├── check_status.py          # Data collection status checker
 │   └── view_database.py         # Database viewer utility
+├── ml_models/
+│   └── README.md                # Machine learning models and pipelines
 ├── data/
 │   └── tmdb_commercial_movies_2016_2024.csv  # Source dataset
-├── config/
-│   └── api_keys.example.yaml    # Configuration template
 └── requirements.txt             # Python dependencies
 ```
 
@@ -57,12 +65,6 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 3. Install dependencies:
 ```bash
 pip install -r requirements.txt
-```
-
-4. Set up configuration:
-```bash
-cp config/api_keys.example.yaml config/api_keys.yaml
-# Edit api_keys.yaml with your API credentials if needed
 ```
 
 ## Usage
@@ -105,7 +107,9 @@ Focus on IMDb and Rotten Tomatoes as primary review sources, which provide compr
 
 ## Machine Learning Pipeline
 
-This repository handles **data collection and feature engineering only**. The scraped data is exported and fed into a separate ML classifier for predicting movie performance (hit/flop classification).
+This repository contains both **data collection** and **machine learning model training** components. The data collection pipeline scrapes and processes movie data, which is then used to train ML classifiers for predicting movie performance (hit/flop classification).
+
+See the `ml_models/` directory for model training notebooks and evaluation scripts.
 
 ### Features Generated
 - TMDB ratings and popularity scores
